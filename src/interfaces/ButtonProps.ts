@@ -3,4 +3,5 @@ export interface ButtonProps {
   title: string;
   variant?: "text" | "outlined" | "contained";
   disabled?: boolean;
+  fullWidth?: boolean;
 }

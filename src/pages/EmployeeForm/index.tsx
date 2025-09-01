@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // External Libraries
-import { Container } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 // Components
 import StepForm from "../../components/StepForm";
+import Layout from "../../components/Layout";
 
 // Services
 import { saveEmployee } from "../../services/employeeService";
@@ -15,21 +16,21 @@ import {
 } from "../../constants/employees";
 
 const EmployeeForm = () => {
+  const navigate = useNavigate();
 
   const handleFinish = async (data: any) => {
     try {
       await saveEmployee(data);
-      alert("Funcionário salvo com sucesso!");
+      navigate("/employees");
     } catch (error) {
       console.error(error);
-      alert("Erro ao salvar funcionário.");
     }
   };
 
   return (
-    <Container>
+    <Layout>
       <StepForm steps={employeeForm} onFinish={handleFinish} defaultValue={employeeDefaultValue} />
-    </Container>
+    </Layout>
   );
 }
 

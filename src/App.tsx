@@ -1,13 +1,21 @@
+// External Libraries
 import { BrowserRouter } from "react-router-dom";
-import Layout from "./components/Layout";
+
+// Routes
 import AppRoutes from "./routes/AppRoutes";
+
+// Contexts
+import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Layout>
-        <AppRoutes />
-      </Layout>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

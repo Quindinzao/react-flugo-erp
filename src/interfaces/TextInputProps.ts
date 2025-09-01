@@ -7,5 +7,6 @@ export interface TextInputProps {
   pattern?: { value: RegExp; message: string };
   fullWidth?: boolean;
   error?: boolean;
-  helperText?: string;
+  helperText?: string | any;
+  type?: "password"
 }

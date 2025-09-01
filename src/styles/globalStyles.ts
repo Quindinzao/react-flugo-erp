@@ -76,11 +76,11 @@ export const globalStyles: ThemeOptions = {
       styleOverrides: {
         root: {
           fontFamily: "Public Sans, sans-serif",
-        fontWeight: 400,
-        fontStyle: "normal", // "Regular" no Figma corresponde a normal
-        fontSize: "14px",
-        lineHeight: "22px",
-        letterSpacing: "0px",
+          fontWeight: 400,
+          fontStyle: "normal",
+          fontSize: "14px",
+          lineHeight: "22px",
+          letterSpacing: "0px",
         }
       }
     },

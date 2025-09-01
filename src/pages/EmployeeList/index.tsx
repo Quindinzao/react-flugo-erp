@@ -1,9 +1,9 @@
 // External Libraries
-import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 
 // Components
 import EmployeeTableWrapper from "./components/EmployeeTableWrapper";
+import Layout from "../../components/Layout";
 
 // Services
 import { getEmployees } from "../../services/employeeService";
@@ -34,9 +34,9 @@ const EmployeeList = () => {
   }, []);
 
   return (
-    <Container>
+    <Layout>
       <EmployeeTableWrapper data={employees} />
-    </Container>
+    </Layout>
   );
 }
 

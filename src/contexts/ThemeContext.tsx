@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 // External Libraries
-import { createContext, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 // Styles
@@ -17,7 +17,7 @@ export const ThemeContext = createContext<ThemeContextProps>({
   mode: "light",
 });
 
-export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [mode, setMode] = useState<"light" | "dark">("light");
 
   const toggleTheme = () =>
@@ -25,12 +25,17 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
 
   const theme = useMemo(() => (mode === "light" ? lightTheme : darkTheme), [mode]);
 
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "light") setMode(saved);
+  }, []);
+
   return (
     <ThemeContext.Provider value={{ toggleTheme, mode }}>
-      <ThemeProvider theme={theme}>
+      <MUIThemeProvider theme={theme}>
         <CssBaseline />
         {children}
-      </ThemeProvider>
+      </MUIThemeProvider>
     </ThemeContext.Provider>
   );
 };

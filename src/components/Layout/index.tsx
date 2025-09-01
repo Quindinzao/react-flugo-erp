@@ -1,6 +1,6 @@
 // External Libraries
 import { useState } from "react";
-import { Toolbar } from "@mui/material";
+import { Container, Toolbar } from "@mui/material";
 
 // Components
 import Header from "../Header";
@@ -17,14 +17,14 @@ const Layout = (props: LayoutProps) => {
   const handleMenuClick = () => setSidebarOpen(!sidebarOpen);
 
   return (
-    <>
+    <Container>
       <Sidebar open={sidebarOpen} />
       <Header onMenuClick={handleMenuClick} />
       <Main sidebarOpen={sidebarOpen}>
         <Toolbar />
         {props.children}
       </Main>
-    </>
+    </Container>
   );
 }
 
