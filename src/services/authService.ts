@@ -10,8 +10,18 @@ export const login = async (email: string, password: string) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential;
   } catch (error: any) {
-    console.error("Erro no login:", error.message);
-    throw error;
+    switch (error.code) {
+      case "auth/invalid-email":
+        throw new Error("O e-mail fornecido é inválido.");
+      case "auth/user-disabled":
+        throw new Error("Esta conta foi desativada.");
+      case "auth/user-not-found":
+        throw new Error("Nenhum usuário encontrado com este e-mail.");
+      case "auth/wrong-password":
+        throw new Error("Senha incorreta.");
+      default:
+        throw new Error(`Erro no login: ${error.message}`);
+    }
   }
 };
 
@@ -20,6 +30,6 @@ export const logout = async () => {
     await signOut(auth);
   } catch (error: any) {
     console.error("Erro ao sair:", error.message);
-    throw error;
+    throw new Error("Não foi possível sair. Tente novamente.");
   }
 };

@@ -2,7 +2,7 @@
 import {
   Routes, 
   Route, 
-  // Navigate 
+  Navigate 
 } from "react-router-dom";
 
 // Pages
@@ -15,32 +15,44 @@ import EmployeeForm from "../pages/EmployeeForm";
 
 // Routes
 import PrivateRoute from "./PrivateRoutes";
+import Dashboard from "../pages/Dashboard";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      {/* <Route path="/" element={<Navigate to="/employees" replace />} />
-      <Route path="/employees" element={<EmployeeList />} />
-      <Route path="/employees/add" element={<EmployeeForm />} /> */}
-      {/* <Layout> */}
-        <Route
-          path="/employees"
-          element={
-            <PrivateRoute>
-              <EmployeeList />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/employees/add"
-          element={
-            <PrivateRoute>
-              <EmployeeForm />
-            </PrivateRoute>
-          }
-        />
-      {/* </Layout> */}
+      <Route 
+        path="/" 
+        element={
+          <PrivateRoute>
+            <Navigate to="/dashboard" replace />
+          </PrivateRoute>
+        } 
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/employees"
+        element={
+          <PrivateRoute>
+            <EmployeeList />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/employees/add"
+        element={
+          <PrivateRoute>
+            <EmployeeForm />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }

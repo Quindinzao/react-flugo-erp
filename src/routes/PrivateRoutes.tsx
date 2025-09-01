@@ -4,10 +4,7 @@ import { Navigate } from "react-router-dom";
 
 // Contexts
 import { useAuth } from "../contexts/AuthContext";
-import { Box } from "@mui/material";
-
-// Assets
-import logo from '../assets/flugo.svg';
+import Loading from "../components/Loading";
 
 interface PrivateRoutesProps {
   children: JSX.Element;
@@ -16,20 +13,7 @@ interface PrivateRoutesProps {
 const PrivateRoute = ({ children }: PrivateRoutesProps) => {
   const { user, loading } = useAuth();
 
-  if (loading) {
-    return (
-      <Box
-        width="100%"
-        height="100vh"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        bgcolor={"primary.main"}
-      >
-        <img src={logo} height={64} alt={'Carregando'} />
-      </Box>
-    )
-  }
+  if (loading) return <Loading />
   return user ? children : <Navigate to="/login" replace />;
 };
 

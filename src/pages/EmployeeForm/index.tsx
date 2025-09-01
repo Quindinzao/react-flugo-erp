@@ -15,21 +15,29 @@ import {
   EMPLOYEE_DEFAULT_VALUE as employeeDefaultValue
 } from "../../constants/employees";
 
+// Interfaces
+import type { EmployeeProps } from "../../interfaces/EmployeeProps";
+
 const EmployeeForm = () => {
   const navigate = useNavigate();
 
-  const handleFinish = async (data: any) => {
+  const handleSave = async (data: EmployeeProps) => {
     try {
       await saveEmployee(data);
       navigate("/employees");
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.error(error.message);
+      alert(error.message);
     }
   };
 
   return (
     <Layout>
-      <StepForm steps={employeeForm} onFinish={handleFinish} defaultValue={employeeDefaultValue} />
+      <StepForm 
+        steps={employeeForm} 
+        onFinish={handleSave} 
+        defaultValue={employeeDefaultValue} 
+      />
     </Layout>
   );
 }

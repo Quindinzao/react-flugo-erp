@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 // Components
-import EmployeeTableWrapper from "./components/EmployeeTableWrapper";
 import Layout from "../../components/Layout";
+import EmployeeStatusChart from "./components/EmployeeStatusChart";
 import LoadingErrorWrapper from "../../components/LoadingError";
 
 // Services
@@ -13,7 +13,7 @@ import { getEmployees } from "../../services/employeeService";
 // Interfaces
 import type { EmployeeProps } from "../../interfaces/EmployeeProps";
 
-const EmployeeList = () => {
+const Dashboard = () => {
   const [employees, setEmployees] = useState<EmployeeProps[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -30,18 +30,23 @@ const EmployeeList = () => {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  const chartData = [
+    { name: "Ativos", value: employees.filter(emp => emp.status === "Ativo").length },
+    { name: "Inativos", value: employees.filter(emp => emp.status === "Inativo").length }
+  ];
+
   return (
     <Layout>
       <LoadingErrorWrapper loading={loading} error={error}>
-        <EmployeeTableWrapper data={employees} />
+        <EmployeeStatusChart chartData={chartData} />
       </LoadingErrorWrapper>
     </Layout>
   );
 };
 
-export default EmployeeList;
+export default Dashboard;

@@ -10,25 +10,20 @@ import type { EmployeeProps } from "../interfaces/EmployeeProps";
 export const saveEmployee = async (data: EmployeeProps) => {
   try {
     await addDoc(collection(db, "employees"), data);
-    alert("Funcionário salvo com sucesso!");
   } catch (error) {
     const e = error as FirestoreError;
 
     switch (e.code) {
       case "permission-denied":
-        alert("🚫 Você não tem permissão para salvar funcionários.");
-        break;
+        throw new Error("🚫 Você não tem permissão para salvar funcionários.");
       case "unauthenticated":
-        alert("🔒 Usuário não autenticado. Faça login para continuar.");
-        break;
+        throw new Error("🔒 Usuário não autenticado. Faça login para continuar.");
       case "unavailable":
-        alert("🌐 Serviço indisponível. Verifique sua conexão com a internet.");
-        break;
+        throw new Error("🌐 Serviço indisponível. Verifique sua conexão com a internet.");
       case "already-exists":
-        alert("⚠️ Documento já existe. Verifique os dados antes de salvar.");
-        break;
+        throw new Error("⚠️ Documento já existe. Verifique os dados antes de salvar.");
       default:
-        alert("❌ Erro inesperado ao adicionar funcionário:" + e.message);
+        throw new Error("❌ Erro inesperado ao adicionar funcionário:" + e.message);
     }
   }
 };
@@ -51,18 +46,13 @@ export const getEmployees = async (): Promise<EmployeeProps[]> => {
 
     switch (e.code) {
       case "permission-denied":
-        alert("🚫 Você não tem permissão para ler os funcionários.");
-        break;
+        throw new Error("🚫 Você não tem permissão para ler os funcionários.");
       case "unauthenticated":
-        alert("🔒 Usuário não autenticado. Faça login para acessar os dados.");
-        break;
+        throw new Error("🔒 Usuário não autenticado. Faça login para acessar os dados.");
       case "unavailable":
-        alert("🌐 Serviço indisponível. Tente novamente mais tarde.");
-        break;
+        throw new Error("🌐 Serviço indisponível. Tente novamente mais tarde.");
       default:
-        alert("❌ Erro inesperado ao buscar funcionários:" + e.message);
+        throw new Error("❌ Erro inesperado ao buscar funcionários:" + e.message);
     }
-
-    return [];
   }
 };

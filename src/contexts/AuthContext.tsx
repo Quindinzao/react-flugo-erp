@@ -1,7 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-refresh/only-export-components */
 // External Libraries
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { type User, onAuthStateChanged } from "firebase/auth";
 
 // Services
@@ -13,29 +13,41 @@ import type { AuthContextProps } from "../interfaces/AuthContextProps";
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-    setUser(firebaseUser);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000)
-  });
-
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000)
+    });
     return () => unsubscribe();
   }, []);
 
   const login = async (email: string, password: string) => {
-    await signIn(email, password);
+    try {
+      const userCredential = await signIn(email, password);
+      setUser(userCredential.user);
+    } catch (error: any) {
+      console.error("Erro ao fazer login:", error.message);
+      alert("Falha ao fazer login: " + error.message);
+      throw error;
+    }
   };
 
   const logout = async () => {
-    await signOut();
+    try {
+      await signOut();
+      setUser(null);
+    } catch (error: any) {
+      console.error("Erro ao fazer logout:", error.message);
+      alert("Falha ao sair: " + error.message);
+      throw error;
+    }
   };
-
   return (
     <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
