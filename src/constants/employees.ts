@@ -20,3 +20,12 @@ export const EMPLOYEE_COLUMN_HEADER = [
   { name: "Departamento" },
   { name: "Status", align: "right" as const },
 ];
+
+export const DEPARTMENTS = [
+  "Recursos Humanos",
+  "Tecnologia da Informação",
+  "Financeiro",
+  "Marketing",
+  "Vendas",
+  "Operações"
+];

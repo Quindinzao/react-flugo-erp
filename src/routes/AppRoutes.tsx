@@ -9,13 +9,11 @@ import {
 import Login from "../pages/Login";
 import EmployeeList from "../pages/EmployeeList";
 import EmployeeForm from "../pages/EmployeeForm";
-
-// Components
-// import Layout from "../components/Layout";
+import Dashboard from "../pages/Dashboard";
+import Logout from "../pages/Logout";
 
 // Routes
 import PrivateRoute from "./PrivateRoutes";
-import Dashboard from "../pages/Dashboard";
 
 const AppRoutes = () => {
   return (
@@ -50,6 +48,14 @@ const AppRoutes = () => {
         element={
           <PrivateRoute>
             <EmployeeForm />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/logout"
+        element={
+          <PrivateRoute>
+            <Logout />
           </PrivateRoute>
         }
       />

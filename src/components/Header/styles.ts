@@ -13,6 +13,7 @@ export const StyledAppBar = styled(AppBar)(({ theme }) => ({
 export const StyledToolbar = styled(Toolbar)(() => ({
   display: "flex",
   alignItems: "center",
+  justifyContent: "space-between"
 }));
 
 export const StyledIconButton = styled(IconButton)(() => ({
