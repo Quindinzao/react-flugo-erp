@@ -34,4 +34,8 @@ export const StyledSwitch = styled(Switch)(({ theme }) => ({
   "& .MuiFormControlLabel": {
     marginLeft: 8,
   },
+  "& + .MuiFormControlLabel-label": {
+    color: theme.palette.text.primary,
+    fontSize: 14,
+  },
 }));
